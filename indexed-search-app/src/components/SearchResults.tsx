@@ -127,7 +127,7 @@ const MAX_CARD_WIDTH = 400;
 const CARD_HEIGHT = 180;
 const GRID_GAP = 16;
 
-function useResizeObserver(ref: React.RefObject<HTMLDivElement>, callback: (width: number) => void) {
+function useResizeObserver(ref: React.RefObject<HTMLDivElement | null>, callback: (width: number) => void) {
   useLayoutEffect(() => {
     if (!ref.current) return;
     const handleResize = (entries: ResizeObserverEntry[]) => {
@@ -147,10 +147,6 @@ const SearchResults: React.FC<SearchResultsProps> = memo(({ results, query }) =>
 
   useResizeObserver(containerRef, setContainerWidth);
 
-  if (results.length === 0) {
-    return <NoResults />;
-  }
-
   // Calculate columns and card width responsively
   const columnCount = Math.max(1, Math.floor((containerWidth + GRID_GAP) / (MIN_CARD_WIDTH + GRID_GAP)));
   const cardWidth = Math.min(
@@ -161,15 +157,25 @@ const SearchResults: React.FC<SearchResultsProps> = memo(({ results, query }) =>
   const gridHeight = Math.min(window.innerHeight - 300, rowCount * (CARD_HEIGHT + GRID_GAP));
 
   // Render cell
-  const Cell = useCallback(({ columnIndex, rowIndex, style }: any) => {
+  type GridCellProps = { columnIndex: number; rowIndex: number; style: React.CSSProperties };
+  const Cell = useCallback(({ columnIndex, rowIndex, style }: GridCellProps) => {
     const index = rowIndex * columnCount + columnIndex;
     if (index >= results.length) return null;
+    // Aseguramos que las propiedades existen y son de tipo number
+    const left = typeof style.left === 'number' ? style.left + GRID_GAP : GRID_GAP;
+    const top = typeof style.top === 'number' ? style.top + GRID_GAP : GRID_GAP;
+    const width = typeof style.width === 'number' ? style.width - GRID_GAP : undefined;
+    const height = typeof style.height === 'number' ? style.height - GRID_GAP : undefined;
     return (
-      <div style={{ ...style, left: style.left + GRID_GAP, top: style.top + GRID_GAP, width: style.width - GRID_GAP, height: style.height - GRID_GAP }}>
+      <div style={{ ...style, left, top, width, height }}>
         <ResultCard command={results[index]} query={query} />
       </div>
     );
   }, [results, query, columnCount]);
+
+  if (results.length === 0) {
+    return <NoResults />;
+  }
 
   return (
     <div className="mt-8 lg:mt-12 w-full flex justify-center" ref={containerRef}>

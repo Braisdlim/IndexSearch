@@ -52,7 +52,7 @@ const Home: React.FC = () => {
   const debouncedQuery = useDebounce(query, 150); // 150ms debounce
 
   // Memoize Fuse instance to avoid recreating it on every render
-  const fuse = useMemo(() => new Fuse(commands, fuseOptions), []);
+  // const fuse = useMemo(() => new Fuse(commands, fuseOptions), []); // Eliminada porque no se usa
 
   // Filtrado por texto y categorías
   const filtered = useMemo(() => {
