@@ -38,7 +38,7 @@ const highlightText = (text: string, query: string) => {
 const ResultCard = memo(({ command, query }: { command: Command; query: string }) => {
   const [copied, setCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
-  const { isMobile, isTablet } = useResponsive();
+  const { isMobile } = useResponsive();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(command.name);
@@ -109,8 +109,6 @@ const ResultCard = memo(({ command, query }: { command: Command; query: string }
 ResultCard.displayName = 'ResultCard';
 
 const NoResults = memo(() => {
-  const { isMobile } = useResponsive();
-  
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-4 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12 text-center">
       <motion.div 
