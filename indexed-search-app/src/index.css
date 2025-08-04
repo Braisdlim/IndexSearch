@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 h1 {
@@ -139,4 +140,221 @@ img, video, canvas, audio, iframe, embed, object {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Responsive improvements for mobile */
+@media (max-width: 480px) {
+  /* Extra small mobile optimizations */
+  body {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Improve touch targets for very small screens */
+  button, [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
+    padding: 12px;
+  }
+  
+  /* Optimize text for very small screens */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    word-wrap: break-word;
+  }
+  
+  /* Improve spacing on very small screens */
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Optimize grid for very small screens */
+  .grid {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Mobile optimizations */
+  body {
+    font-size: 14px;
+  }
+  
+  /* Improve touch targets */
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Optimize text for mobile reading */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    word-wrap: break-word;
+  }
+  
+  /* Improve spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Optimize text wrapping */
+  p, span, div {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Tablet optimizations */
+  body {
+    font-size: 16px;
+  }
+  
+  /* Improve grid layout for tablets */
+  .grid {
+    gap: 1rem;
+  }
+  
+  /* Optimize container width for tablets */
+  .container {
+    max-width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop optimizations */
+  body {
+    font-size: 18px;
+  }
+  
+  /* Improve hover states for desktop */
+  .hover\:scale-105:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Optimize container for desktop */
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  /* Large desktop optimizations */
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  /* 2XL screen optimizations */
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* Improve line clamping for different screen sizes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Optimize grid responsiveness */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Improve text readability on different backgrounds */
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Optimize animations for better performance */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Improve focus visibility for accessibility */
+.focus-visible\:ring-2:focus-visible {
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.5);
+}
+
+/* Optimize for high DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  /* Prevent text overflow on mobile */
+  * {
+    max-width: 100%;
+  }
+  
+  /* Improve button sizing for mobile */
+  button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  /* Optimize input fields for mobile */
+  input, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Improve card spacing on mobile */
+  .card {
+    margin: 0.25rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Improve text wrapping for long words */
+.word-break {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
